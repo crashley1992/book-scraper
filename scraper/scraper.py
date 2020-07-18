@@ -35,3 +35,4 @@ images = soup.select('img', src=True)
 for image in images:
     image_content = image['src']
     book_images.append(image_content)
+
