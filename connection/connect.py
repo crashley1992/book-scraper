@@ -8,7 +8,7 @@ def connect():
         conn = mysql.connector.connect(host='localhost',
                                        database='books',
                                        user='root',
-                                    #    empty for git pushes
+                                    #    empty for gitpushes
                                        password='')
         if conn.is_connected():
             print('Connected to MySQL database')

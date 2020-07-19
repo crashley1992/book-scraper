@@ -36,3 +36,39 @@ for image in images:
     image_content = image['src']
     book_images.append(image_content)
 
+
+# imports file used for connection and used mysql.connector package to establish connection to sql server
+from mysql.connector import MySQLConnection, Error
+from python_mysql_dbconfig import read_db_config
+
+# function that inserts book title and book price into sql table
+def insert_book(Book_Title, BOOK_PRICE):
+    query = "INSERT INTO BOOKS_LIST(Book_Title,BOOK_PRICE) " \
+            "VALUES(%s,%s)"
+    args = (Book_Title, BOOK_PRICE)
+
+    try:
+        db_config = read_db_config()
+        conn = MySQLConnection(**db_config)
+
+        cursor = conn.cursor()
+        cursor.execute(query, args)
+
+        if cursor.lastrowid:
+            print('last insert id', cursor.lastrowid)
+        else:
+            print('last insert id not found')
+
+        conn.commit()
+    except Error as error:
+        print(error)
+
+    finally:
+        cursor.close()
+        conn.close()
+
+def main():
+   insert_book(book_titles[1], book_prices[1])
+
+if __name__ == '__main__':
+    main()
